@@ -1,7 +1,7 @@
 on:
   release:
     types: [published]
-name: release-please
+name: build-package
 jobs:
   docker-image:
     runs-on: ubuntu-latest
