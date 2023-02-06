@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/atstoyanov/release-workflows/compare/v1.0.0...v1.1.0) (2023-02-06)
+
+
+### Features
+
+* preparation for new version ([48c2838](https://github.com/atstoyanov/release-workflows/commit/48c2838340616e605239fed073d49396be784f6d))
+
+
+### Bug Fixes
+
+* action build name ([27b7188](https://github.com/atstoyanov/release-workflows/commit/27b71884f8570da495056da7e3d2d6026bf53a4d))
+
 ## 1.0.0 (2023-02-06)
 
 
