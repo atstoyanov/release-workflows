@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/atstoyanov/release-workflows/compare/v2.1.0...v2.1.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* change the token that is used for run the release please ([33cfcd0](https://github.com/atstoyanov/release-workflows/commit/33cfcd0b9a8815906bb46ebf775b7fb8460ba60a))
+
 ## [2.1.0](https://github.com/atstoyanov/release-workflows/compare/v2.0.2...v2.1.0) (2023-03-07)
 
 
