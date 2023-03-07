@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/atstoyanov/release-workflows/compare/v2.0.2...v2.1.0) (2023-03-07)
+
+
+### Features
+
+* trigger on release ([c699134](https://github.com/atstoyanov/release-workflows/commit/c699134716b39793c4b20bcfb1ae16d211317327))
+
 ## [2.0.2](https://github.com/atstoyanov/release-workflows/compare/v2.0.1...v2.0.2) (2023-03-07)
 
 
