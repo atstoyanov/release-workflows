@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/atstoyanov/release-workflows/compare/v2.1.1...v2.1.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* improve image creation ([6532593](https://github.com/atstoyanov/release-workflows/commit/653259300259c80ca1699f1db16a95bae7e6546a))
+
 ## [2.1.1](https://github.com/atstoyanov/release-workflows/compare/v2.1.0...v2.1.1) (2023-03-07)
 
 
