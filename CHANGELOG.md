@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/atstoyanov/release-workflows/compare/v2.0.1...v2.0.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* check release automation ([cf59cf2](https://github.com/atstoyanov/release-workflows/commit/cf59cf220be6ed675e889a326df63078a1e28f50))
+
 ## [2.0.1](https://github.com/atstoyanov/release-workflows/compare/v2.0.0...v2.0.1) (2023-03-06)
 
 
