@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.3](https://github.com/atstoyanov/release-workflows/compare/v2.1.2...v2.1.3) (2023-03-08)
+
+
+### Bug Fixes
+
+* Conditional upload ([a441f33](https://github.com/atstoyanov/release-workflows/commit/a441f33f9046a9845a53bdced02760232cd916ee))
+* Conditional upload - 2 ([ec97057](https://github.com/atstoyanov/release-workflows/commit/ec9705724f7110d64a78c199226122e3ad2bfdcd))
+* Conditional upload - 3 ([e85616e](https://github.com/atstoyanov/release-workflows/commit/e85616e8b61003f082bb4f68600a83912eea3005))
+
 ## [2.1.2](https://github.com/atstoyanov/release-workflows/compare/v2.1.1...v2.1.2) (2023-03-07)
 
 
