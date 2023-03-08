@@ -1,6 +1,24 @@
 on:
+  push:
+    branches: ['main']
+
   release:
     types: [released]
+
+  workflow_dispatch:
+    inputs:
+      release-type:
+        type: choice
+        description: 'Release Type'
+        required: true
+        options:
+          - development
+          - production
+        default: development
+      force-source-maps:
+        type: boolean
+        description: 'Force source maps'
+        default: false
 
 name: build-package
 
@@ -10,47 +28,52 @@ jobs:
     strategy:
       matrix:
         node-version: [16]
+
     steps:
+      - name: WORKFLOW PARAMETERS
+        run: |
+          echo "::notice title=Release_type:: ${{ github.event.inputs.release-type }}"
+          echo "::notice title=Force :: ${{ github.event.inputs.force-source-maps }}"
+          echo "::notice title=Build executed by:: @${{ github.actor }}"
+
       - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Prepare
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+
+      - name: Environment Preparation
         id: prep
         run: |
-          DOCKER_IMAGE=example/backend
-          VERSION=noop
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            VERSION=nightly
-          elif [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/}
-          elif [[ $GITHUB_REF == refs/heads/* ]]; then
-            VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
-            if [ "${{ github.event.repository.default_branch }}" = "$VERSION" ]; then
-              VERSION=edge
-            fi
-          elif [[ $GITHUB_REF == refs/pull/* ]]; then
-            VERSION=pr-${{ github.event.number }}
+          ENABLE_SOURCE_MAPS=true
+          UPLOAD_SOURCE_MAPS=false
+          TAG_REF=${{ github.ref_name }}
+          if [ ${{ github.event.inputs.release-type }}=production ]; then 
+            ENABLE_SOURCE_MAPS=false
+            UPLOAD_SOURCE_MAPS=true
+            TAG_REF=production
           fi
-          TAGS="${DOCKER_IMAGE}:${VERSION}"
-          if [[ $VERSION =~ ^v[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-            MINOR=${VERSION%.*}
-            MAJOR=${MINOR%.*}
-            TAGS="$TAGS,${DOCKER_IMAGE}:${MINOR},${DOCKER_IMAGE}:${MAJOR},${DOCKER_IMAGE}:latest"
-          elif [ "${{ github.event_name }}" = "push" ]; then
-            TAGS="$TAGS,${DOCKER_IMAGE}:sha-${GITHUB_SHA::8}"
+          if [ ${{ github.event.inputs.force-source-maps }}=true ]; then 
+            ENABLE_SOURCE_MAPS=true
           fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
-          echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
-      - name: Summary
+          echo "ENABLE_SOURCE_MAPS=${ENABLE_SOURCE_MAPS}" >> $GITHUB_OUTPUT
+          echo "UPLOAD_SOURCE_MAPS=${UPLOAD_SOURCE_MAPS}" >> $GITHUB_OUTPUT
+          echo "tag1=${{ steps.package-version.outputs.current-version}}-" >> $GITHUB_OUTPUT
+          echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
+
+      - name: Generate Summary
         run: |
-          echo "### Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" $GITHUB_STEP_SUMMARY
-          echo "Version: ${{ steps.prep.outputs.version}}" >> $GITHUB_STEP_SUMMARY
-          echo "tags: ${{ steps.prep.outputs.tags}}" >> $GITHUB_STEP_SUMMARY
-          echo "created: ${{ steps.prep.outputs.created}}" >> $GITHUB_STEP_SUMMARY
+          echo "## :rocket: Docker image creation summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY 
+          echo "Tags:" >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ steps.prep.outputs.tag1 }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ steps.prep.outputs.tag2 }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ steps.prep.outputs.tag3 }}" >> $GITHUB_STEP_SUMMARY
