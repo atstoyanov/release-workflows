@@ -70,7 +70,7 @@ jobs:
           echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
       - name: Create image
         run: |
-          echo "EXCLUDE_SOURCE_MAPS=${{ steps.prep.outputs.ENABLE_SOURCE_MAPS==false }}"
+          echo "EXCLUDE_SOURCE_MAPS=${{ !steps.prep.outputs.ENABLE_SOURCE_MAPS }}"
 
       - name: Generate Summary
         run: |
