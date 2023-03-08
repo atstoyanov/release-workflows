@@ -51,26 +51,26 @@ jobs:
       - name: Environment Preparation
         id: prep
         run: |
-          ENABLE_SOURCE_MAPS=true
+          EXCLUDE_SOURCE_MAPS=false
           UPLOAD_SOURCE_MAPS=false
           TAG_REF=${{ github.ref_name }}
           if [ "${{ github.event.inputs.release-type }}" = "production" ]; then 
-            ENABLE_SOURCE_MAPS=false
+            EXCLUDE_SOURCE_MAPS=true
             UPLOAD_SOURCE_MAPS=true
             TAG_REF=production
           fi
           if [ "${{ github.event.inputs.force-source-maps }}" = "true" ]; then 
-            ENABLE_SOURCE_MAPS=true
+            EXCLUDE_SOURCE_MAPS=false
           fi
 
-          echo "ENABLE_SOURCE_MAPS=${ENABLE_SOURCE_MAPS}" >> $GITHUB_OUTPUT
+          echo "EXCLUDE_SOURCE_MAPS=${EXCLUDE_SOURCE_MAPS}" >> $GITHUB_OUTPUT
           echo "UPLOAD_SOURCE_MAPS=${UPLOAD_SOURCE_MAPS}" >> $GITHUB_OUTPUT
           echo "tag1=${{ steps.package-version.outputs.current-version}}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
       - name: Create image
         run: |
-          echo "EXCLUDE_SOURCE_MAPS=${{ !steps.prep.outputs.ENABLE_SOURCE_MAPS }}"
+          echo "EXCLUDE_SOURCE_MAPS=${{ steps.prep.outputs.EXCLUDE_SOURCE_MAPS }}"
 
       - name: Generate Summary
         run: |
@@ -81,5 +81,5 @@ jobs:
           echo "- ${{ steps.prep.outputs.tag2 }}" >> $GITHUB_STEP_SUMMARY
           echo "- ${{ steps.prep.outputs.tag3 }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY 
-          echo "Enable Source Maps: ${{ steps.prep.outputs.ENABLE_SOURCE_MAPS }}" >> $GITHUB_STEP_SUMMARY
+          echo "Exclude Source Maps: ${{ steps.prep.outputs.EXCLUDE_SOURCE_MAPS }}" >> $GITHUB_STEP_SUMMARY
           echo "Upload Source Maps: ${{ steps.prep.outputs.UPLOAD_SOURCE_MAPS }}" >> $GITHUB_STEP_SUMMARY
