@@ -32,8 +32,8 @@ jobs:
     steps:
       - name: WORKFLOW PARAMETERS
         run: |
-          echo "::notice title=Release_type:: ${{ github.event.inputs.release-type }}"
-          echo "::notice title=Force :: ${{ github.event.inputs.force-source-maps }}"
+          echo "::notice title=Release Type:: ${{ github.event.inputs.release-type }}"
+          echo "::notice title=Force Source Maps :: ${{ github.event.inputs.force-source-maps }}"
           echo "::notice title=Build executed by:: @${{ github.actor }}"
 
       - uses: actions/checkout@v3
