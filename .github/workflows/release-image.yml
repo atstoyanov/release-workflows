@@ -59,7 +59,7 @@ jobs:
             UPLOAD_SOURCE_MAPS=true
             TAG_REF=production
           fi
-          if [[ ${{ github.event.inputs.force-source-maps }} ]]; then 
+          if [ "${{ github.event.inputs.force-source-maps }}"="true" ]; then 
             ENABLE_SOURCE_MAPS=true
           fi
 
@@ -68,7 +68,9 @@ jobs:
           echo "tag1=${{ steps.package-version.outputs.current-version}}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
-
+      - name: Create image
+        run |
+          echo 
       - name: Generate Summary
         run: |
           echo "## :rocket: Docker image creation summary" >> $GITHUB_STEP_SUMMARY
