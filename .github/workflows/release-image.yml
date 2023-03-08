@@ -72,7 +72,7 @@ jobs:
         run: |
           echo "EXCLUDE_SOURCE_MAPS=${{ steps.prep.outputs.EXCLUDE_SOURCE_MAPS }}"
       - name: Upload source Maps
-        if: ${{ steps.prep.outputs.UPLOAD_SOURCE_MAPS=="true"}}
+        if: ${{ steps.prep.outputs.UPLOAD_SOURCE_MAPS==true }}
         run: echo "Upload"
 
       - name: Generate Summary
