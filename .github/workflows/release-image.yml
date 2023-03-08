@@ -77,3 +77,6 @@ jobs:
           echo "- ${{ steps.prep.outputs.tag1 }}" >> $GITHUB_STEP_SUMMARY
           echo "- ${{ steps.prep.outputs.tag2 }}" >> $GITHUB_STEP_SUMMARY
           echo "- ${{ steps.prep.outputs.tag3 }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY 
+          echo "Enable Source Maps: ${{ steps.prep.outputs.ENABLE_SOURCE_MAPS }}" >> $GITHUB_STEP_SUMMARY
+          echo "Upload Source Maps: ${{ steps.prep.outputs.UPLOAD_SOURCE_MAPS }}" >> $GITHUB_STEP_SUMMARY
