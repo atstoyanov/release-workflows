@@ -71,6 +71,9 @@ jobs:
       - name: Create image
         run: |
           echo "EXCLUDE_SOURCE_MAPS=${{ steps.prep.outputs.EXCLUDE_SOURCE_MAPS }}"
+      - name: Upload source Maps
+        if: ${{ steps.prep.outputs.UPLOAD_SOURCE_MAPS }}
+        run: echo "Upload"
 
       - name: Generate Summary
         run: |
