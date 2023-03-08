@@ -65,8 +65,8 @@ jobs:
 
           echo "ENABLE_SOURCE_MAPS=${ENABLE_SOURCE_MAPS}" >> $GITHUB_OUTPUT
           echo "UPLOAD_SOURCE_MAPS=${UPLOAD_SOURCE_MAPS}" >> $GITHUB_OUTPUT
-          echo "tag1=${{ steps.package-version.outputs.current-version}}-" >> $GITHUB_OUTPUT
-          echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "tag1=${{ steps.package-version.outputs.current-version}}-${TAG_REF}" >> $GITHUB_OUTPUT
+          echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
 
       - name: Generate Summary
