@@ -69,8 +69,9 @@ jobs:
           echo "tag2=${{ steps.package-version.outputs.current-version}}-${{ github.run_id }}-${TAG_REF}" >> $GITHUB_OUTPUT
           echo "tag3=${{ github.run_id }}" >> $GITHUB_OUTPUT
       - name: Create image
-        run |
-          echo 
+        run: |
+          echo "EXCLUDE_SOURCE_MAPS=${{ steps.prep.outputs.ENABLE_SOURCE_MAPS==false }}"
+
       - name: Generate Summary
         run: |
           echo "## :rocket: Docker image creation summary" >> $GITHUB_STEP_SUMMARY
