@@ -54,12 +54,12 @@ jobs:
           ENABLE_SOURCE_MAPS=true
           UPLOAD_SOURCE_MAPS=false
           TAG_REF=${{ github.ref_name }}
-          if [ "${{ github.event.inputs.release-type }}"="production" ]; then 
+          if [ "${{ github.event.inputs.release-type }}" = "production" ]; then 
             ENABLE_SOURCE_MAPS=false
             UPLOAD_SOURCE_MAPS=true
             TAG_REF=production
           fi
-          if [ "${{ github.event.inputs.force-source-maps }}"="true" ]; then 
+          if [ "${{ github.event.inputs.force-source-maps }}" = "true" ]; then 
             ENABLE_SOURCE_MAPS=true
           fi
 
